@@ -129,8 +129,11 @@ def generate_wg0_conf(user_db, srv_name, awg_params):
 
 def generate_server_json(user_db, srv_name, xray_params):
 	clients = _extract_xray_clients(user_db, srv_name)
-	userids = [cl['id'] for cl in clients]
-	cl = [{"flow": "xtls-rprx-vision", "id": ID} for ID in userids]
+	cl = [{
+		"flow": "xtls-rprx-vision",
+		"id": cl['id'],
+		"level": 0,
+		"email": cl['name']+"@xray.com"} for cl in clients]
 	
 	config = {
 		"inbounds": [{
@@ -153,6 +156,32 @@ def generate_server_json(user_db, srv_name, xray_params):
 			}
 		}],
 		"log": {"loglevel": "error"},
+		"stats": {},
+		"policy": {
+			"levels": {
+				"0": {
+					"handshake": 4,
+					"connIdle": 300,
+					"uplinkOnly": 2,
+					"downlinkOnly": 5,
+					"statsUserUplink": True,
+					"statsUserDownlink": True,
+					"statsUserOnline": True,
+					"bufferSize": 512
+				}
+			},
+			"system": {
+				"statsInboundUplink": True,
+				"statsInboundDownlink": True,
+				"statsOutboundUplink": True,
+				"statsOutboundDownlink": True
+			}
+		},
+		"api": {
+			"tag": "api",
+			"listen": "127.0.0.1:8181",
+			"services": ["StatsService"]
+		},
 		"outbounds": [{
 			"tag": "main_out",
 			"protocol": "freedom"
