@@ -134,6 +134,7 @@ def generate_server_json(user_db, srv_name, xray_params):
 	
 	config = {
 		"inbounds": [{
+			"tag": "main_in",
 			"port": 443,
 			"protocol": "vless",
 			"settings": {
@@ -152,7 +153,10 @@ def generate_server_json(user_db, srv_name, xray_params):
 			}
 		}],
 		"log": {"loglevel": "error"},
-		"outbounds": [{"protocol": "freedom"}]
+		"outbounds": [{
+			"tag": "main_out",
+			"protocol": "freedom"
+		}]
 	}
 
 	return json.dumps(config, indent=4)
