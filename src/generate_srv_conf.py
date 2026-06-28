@@ -16,10 +16,25 @@ def main(args):
 				user_db, srv['srv_name'], srv['awg_params'])
 			bcs.write_file(awg0conf,
 				"awg0.conf", arguments.out_folder)
+			bcs.write_file(srv['awg_params']['psk_key'], 
+				"wireguard_psk.key", arguments.out_folder)
+			bcs.write_file(srv['awg_params']['priv_key'], 
+				"wireguard_server_private_key.key", arguments.out_folder)
+			bcs.write_file(srv['awg_params']['pub_key'], 
+				"wireguard_server_public_key.key", arguments.out_folder)
 		case "xray":
 			serverjson = bcs.generate_server_json(
 				user_db, srv['srv_name'], srv["xray_params"])
-			bcs.write_file(serverjson, "server.json", arguments.out_folder)
+			bcs.write_file(serverjson,
+				"server.json", arguments.out_folder)
+			bcs.write_file(srv['xray_params']['priv_key'], 
+				"xray_private.key", arguments.out_folder)
+			bcs.write_file(srv['xray_params']['pub_key'], 
+				"xray_public.key", arguments.out_folder)
+			bcs.write_file(srv['xray_params']['short_id'], 
+				"xray_short_id.key", arguments.out_folder)
+			bcs.write_file(srv['xray_params']['uuid_key'], 
+				"xray_uuid.key", arguments.out_folder)
 
 	clientsTable = bcs.generate_clientsTable(
 		user_db, srv['srv_name'], arguments.type)
