@@ -145,7 +145,7 @@ def generate_server_json(user_db, srv_name, xray_params):
 	config = {
 		"inbounds": [{
 			"tag": "main_in",
-			"port": 443,
+			"port": int(xray_params["port"]),
 			"protocol": "vless",
 			"settings": {
 				"clients": cl,
@@ -154,7 +154,7 @@ def generate_server_json(user_db, srv_name, xray_params):
 			"streamSettings": {
 				"network": "tcp",
 				"realitySettings": {
-					"dest": xray_params["site"]+":443",
+					"dest": xray_params["site"]+":"+xray_params["port"],
 					"privateKey": xray_params["priv_key"],
 					"serverNames": [xray_params["site"]],
 					"shortIds": [xray_params["short_id"]]
