@@ -12,9 +12,10 @@ def main(args):
 
 	match arguments.type:
 		case "awg":
-			wg0conf = bcs.generate_wg0_conf(
+			awg0conf = bcs.generate_awg0_conf(
 				user_db, srv['srv_name'], srv['awg_params'])
-			bcs.write_file(wg0conf, "wg0.conf", arguments.out_folder)
+			bcs.write_file(awg0conf,
+				"awg0.conf", arguments.out_folder)
 		case "xray":
 			serverjson = bcs.generate_server_json(
 				user_db, srv['srv_name'], srv["xray_params"])

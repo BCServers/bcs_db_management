@@ -94,9 +94,9 @@ def _extract_xray_clients(user_db, srv_name):
 
 	return clients
 
-def generate_wg0_conf(user_db, srv_name, awg_params):
+def generate_awg0_conf(user_db, srv_name, awg_params):
 	# Interface section
-	wg0conf = (
+	awg0conf = (
 		"[Interface]\n"
 		f"PrivateKey = {awg_params['priv_key']}\n"
 		"Address = 10.8.1.0/24\n"
@@ -106,18 +106,25 @@ def generate_wg0_conf(user_db, srv_name, awg_params):
 		f"Jmax = {awg_params['Jmax']}\n"
 		f"S1 = {awg_params['S1']}\n"
 		f"S2 = {awg_params['S2']}\n"
+		f"S3 = {awg_params['S3']}\n"
+		f"S4 = {awg_params['S4']}\n"
 		f"H1 = {awg_params['H1']}\n"
 		f"H2 = {awg_params['H2']}\n"
 		f"H3 = {awg_params['H3']}\n"
 		f"H4 = {awg_params['H4']}\n"
+		f"# I1 = {awg_params['I1']}\n"
+		f"# I2 = {awg_params['I2']}\n"
+		f"# I3 = {awg_params['I3']}\n"
+		f"# I4 = {awg_params['I4']}\n"
+		f"# I5 = {awg_params['I5']}\n"
 		"\n"
 	)
 
 	# Peers section
 	peers = _extract_awg_peers(user_db, srv_name)
 	for peer in peers:
-		wg0conf = (
-			f"{wg0conf}"
+		awg0conf = (
+			f"{awg0conf}"
 			f"[Peer] #{peer['name']}\n"
 			f"PublicKey = {peer['pub_key']}\n"
 			f"PresharedKey = {awg_params['psk_key']}\n"
@@ -125,7 +132,7 @@ def generate_wg0_conf(user_db, srv_name, awg_params):
 			"\n"
 		)
 
-	return wg0conf
+	return awg0conf
 
 def generate_server_json(user_db, srv_name, xray_params):
 	clients = _extract_xray_clients(user_db, srv_name)
@@ -305,19 +312,26 @@ def revoke_access(user_db, username, srv_name, type):
 def _get_awg_params_template():
 	return {
 		"port": "",
-		"Jmax": "",
-		"Jc": "",
 		"MTU": "",
-		"H2": "",
-		"H1": "",
-		"Jmin": "",
 		"pub_key": "",
 		"priv_key": "",
-		"H4": "",
 		"psk_key": "",
-		"S2": "",
+		"H1": "",
+		"H2": "",
+		"H3": "",
+		"H4": "",
+		"I1": "",
+		"I2": "",
+		"I3": "",
+		"I4": "",
+		"I5": "",
+		"Jc": "",
+		"Jmax": "",
+		"Jmin": "",
 		"S1": "",
-		"H3": ""
+		"S2": "",
+		"S3": "",
+		"S4": ""
 	}
 
 def _get_xray_params_template():
