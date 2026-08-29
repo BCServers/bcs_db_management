@@ -136,8 +136,9 @@ def generate_awg0_conf(user_db, srv_name, awg_params):
 
 def generate_server_json(user_db, srv_name, xray_params):
 	clients = _extract_xray_clients(user_db, srv_name)
+	flow = "xtls-rprx-vision" if xray_params["network"] == "tcp" else ""
 	cl = [{
-		"flow": "xtls-rprx-vision",
+		"flow": flow,
 		"id": cl['id'],
 		"level": 0,
 		"email": cl['name']+"@xray.com"} for cl in clients]
@@ -152,7 +153,11 @@ def generate_server_json(user_db, srv_name, xray_params):
 				"decryption": "none"
 			},
 			"streamSettings": {
-				"network": "tcp",
+				"network": xray_params["network"],
+				"xhttpSettings": {
+					"path": "/portal",
+					"mode": "packet-up"
+				},
 				"realitySettings": {
 					"dest": xray_params["site"]+":"+xray_params["port"],
 					"privateKey": xray_params["priv_key"],
