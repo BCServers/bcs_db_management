@@ -342,9 +342,14 @@ def _get_awg_params_template():
 def _get_xray_params_template():
 	return {
 		"site": "",
+		"fingerprint": "",
 		"short_id": "",
 		"pub_key": "",
-		"priv_key": ""
+		"priv_key": "",
+		"uuid_key": "",
+		"port": "",
+		"network": "",
+		"relay_port": ""
 	}
 
 def make_empty_server(srv_name, awg=False, xray=False):
