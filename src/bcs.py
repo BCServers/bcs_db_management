@@ -112,6 +112,15 @@ def generate_awg0_conf(user_db, srv_name, awg_params):
 		f"H2 = {awg_params['H2']}\n"
 		f"H3 = {awg_params['H3']}\n"
 		f"H4 = {awg_params['H4']}\n"
+		f"HeaderProtectionKey = {awg_params['HeaderProtectionKey']}\n"
+		f"ContentPaddingAddition = {awg_params['ContentPaddingAddition']}\n"
+		f"RekeyAfterTime = {awg_params['RekeyAfterTime']}\n"
+		f"RekeyTimeout = {awg_params['RekeyTimeout']}\n"
+		f"RejectAfterTime = {awg_params['RejectAfterTime']}\n"
+		f"KeepaliveTimeout = {awg_params['KeepaliveTimeout']}\n"
+		f"MaxHandshakeAttempts = {awg_params['MaxHandshakeAttempts']}\n"
+		f"RandomTrailers = {awg_params['RandomTrailers']}\n"
+		f"DisableCookies = {awg_params['DisableCookies']}\n"
 		f"# I1 = {awg_params['I1']}\n"
 		f"# I2 = {awg_params['I2']}\n"
 		f"# I3 = {awg_params['I3']}\n"
@@ -336,7 +345,16 @@ def _get_awg_params_template():
 		"S1": "",
 		"S2": "",
 		"S3": "",
-		"S4": ""
+		"S4": "",
+		"HeaderProtectionKey": "",
+		"ContentPaddingAddition": "",
+		"RekeyAfterTime": "",
+		"RekeyTimeout": "",
+		"RejectAfterTime": "",
+		"KeepaliveTimeout": "",
+		"MaxHandshakeAttempts": "",
+		"RandomTrailers": "",
+		"DisableCookies": ""
 	}
 
 def _get_xray_params_template():
